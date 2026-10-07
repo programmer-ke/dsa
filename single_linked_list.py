@@ -15,6 +15,23 @@ class SingleLinkedList:
         self.end = None
         self._count = 0
 
+    def __len__(self):
+        return self.count()
+
+    def __iter__(self):
+        curr = self.begin
+        while curr:
+            yield curr.value
+            curr = curr.next
+
+    def __repr__(self):
+        class_name = type(self).__name__
+        return f"{class_name}()"
+
+    def __str__(self):
+        class_name = type(self).__name__
+        return f"{class_name}({[i for i in self]})"
+
     def push(self, obj):
         """Append a new item to end of list"""
         node = SingleLinkedListNode(obj)
@@ -104,11 +121,8 @@ class SingleLinkedList:
 
     def dump(self, mark):
         """Dumps the content of the list"""
-        print(f"\n{mark}: ")
-        curr = self.begin
-        while curr:
-            print(curr.value, end=" ")
-            curr = curr.next
+        print(f"\n{mark}:", end=" ")
+        print([i for i in self])
 
     def remove(self, obj):
         """Remove node referencing object and return its index"""
