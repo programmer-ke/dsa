@@ -122,14 +122,13 @@ class DoubleLinkedList:
 
     def detach_node(self, node):
         """Detach a node from the list"""
-        if self.begin is not node and self.end is not node:
+
+        if node.prev:
             node.prev.next = node.next
-            node.next.prev = node.prev
-        if self.begin is node:
+        else:
             self.begin = node.next
-            if self.begin is not None:
-                self.begin.prev = None
-        if self.end is node:
+
+        if node.next:
+            node.next.prev = node.prev
+        else:
             self.end = node.prev
-            if self.end is not None:
-                self.end.next = None
