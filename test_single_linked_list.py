@@ -94,6 +94,36 @@ def test_remove():
     assert colors.remove("Zinc White") == 0
 
 
+def test_remove_last_element_updates_end():
+    colors = SingleLinkedList()
+    colors.push("A")
+    colors.push("B")
+    colors.push("C")
+
+    # Remove the last element
+    colors.remove("C")
+
+    # After removal, the list should be A -> B
+    assert colors.last() == "B"
+    assert colors.count() == 2
+
+    # Now add a new item – this should become the new tail
+    colors.push("D")
+
+    # The list should now be A -> B -> D
+    assert colors.count() == 3
+    assert colors.last() == "D"
+
+    # Traverse from the beginning to verify the actual chain
+    values = []
+    curr = colors.begin
+    while curr:
+        values.append(curr.value)
+        curr = curr.next
+
+    assert values == ["A", "B", "D"]
+
+
 def test_first():
 
     colors = SingleLinkedList()

@@ -121,6 +121,11 @@ class SingleLinkedList:
                     self.begin = curr.next
                 else:
                     prev.next = curr.next
+
+                # update end if necessary
+                if curr == self.end:
+                    self.end = prev
+
                 self._count -= 1
                 return index
             prev, curr = curr, curr.next
