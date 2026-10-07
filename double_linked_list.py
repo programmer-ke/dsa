@@ -96,18 +96,23 @@ class DoubleLinkedList:
     def get(self, index):
         """Get the value at index"""
 
-        count, curr = 0, self.begin
-        while curr:
-            if count == index:
-                return curr.value
-            curr = curr.next
-            count += 1
+        if index < 0 or index >= len(self):
+            return None
+
+        if index < len(self) // 2:
+            curr = self.begin
+            for _ in range(index):
+                curr = curr.next
+        else:
+            curr = self.end
+            for _ in range(len(self) - index - 1):
+                curr = curr.prev
+        return curr.value
 
     def dump(self, mark):
         """Dumps the content of the list"""
         print(f"\n{mark}:", end=" ")
         print(self)
-        
 
     def remove(self, obj):
         """Remove node referencing object and return its index"""
