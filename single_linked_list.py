@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import Any
 from dataclasses import dataclass
 
@@ -5,7 +6,7 @@ from dataclasses import dataclass
 @dataclass
 class SingleLinkedListNode:
     value: Any
-    next: "SingleLinkedListNode" = None
+    next: "SingleLinkedListNode" | None = None
 
 
 class SingleLinkedList:
