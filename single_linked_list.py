@@ -13,6 +13,7 @@ class SingleLinkedList:
     def __init__(self):
         self.begin = None
         self.end = None
+        self._count = 0
 
     def push(self, obj):
         """Append a new item to end of list"""
@@ -24,6 +25,7 @@ class SingleLinkedList:
         else:
             self.end.next = node
             self.end = node
+        self._count += 1
 
     def pop(self):
         """Remove last item and return it"""
@@ -47,6 +49,7 @@ class SingleLinkedList:
             # delink previous last item
             self.end.next = None
 
+        self._count -= 1
         return curr.value
 
     def shift(self, obj):
@@ -57,6 +60,7 @@ class SingleLinkedList:
             self.end = node
 
         self.begin = node
+        self._count += 1
 
     def unshift(self):
         """Removes the first item and returns it"""
@@ -71,6 +75,7 @@ class SingleLinkedList:
             # list is now empty
             self.end = None
 
+        self._count -= 1
         return first.value
 
     def first(self):
@@ -85,12 +90,7 @@ class SingleLinkedList:
 
     def count(self):
         """Counts number of items in list"""
-        count = 0
-        current = self.begin
-        while current:
-            count += 1
-            current = current.next
-        return count
+        return self._count
 
     def get(self, index):
         """Get the value at index"""
@@ -121,6 +121,7 @@ class SingleLinkedList:
                     self.begin = curr.next
                 else:
                     prev.next = curr.next
+                self._count -= 1
                 return index
             prev, curr = curr, curr.next
             index += 1
