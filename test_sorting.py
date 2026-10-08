@@ -34,3 +34,9 @@ def test_merge_sort():
     numbers = random_list(max_numbers)
     sorting.merge_sort(numbers)
     assert is_sorted(numbers)
+
+
+def test_quicksort():
+    numbers = random_list(max_numbers)
+    sorting.quicksort(numbers)
+    assert is_sorted(numbers)

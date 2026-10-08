@@ -1,5 +1,7 @@
 """sorting algorithms"""
 
+from double_linked_list import DoubleLinkedList
+
 
 def bubble_sort(numbers):
     """Optimized bubble sort
@@ -74,3 +76,35 @@ def merge(left, right):
         left.next = merge(left.next, right)
         result = left
     return result
+
+
+def quicksort(numbers):
+
+    if len(numbers) <= 1:
+        # base case, already sorted
+        return
+
+    # use first value as pivot
+    pivot = numbers.popleft()
+
+    # partition with list copies
+    less = DoubleLinkedList()
+    greater = DoubleLinkedList()
+
+    while len(numbers):
+        value = numbers.popleft()
+        if value <= pivot:
+            less.push(value)
+        else:
+            greater.push(value)
+
+    # recursively sort
+    quicksort(less)
+    quicksort(greater)
+
+    # merge items in order
+    for item in less:
+        numbers.push(item)
+    numbers.push(pivot)
+    for item in greater:
+        numbers.push(item)
