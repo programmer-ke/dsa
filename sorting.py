@@ -24,58 +24,45 @@ def bubble_sort(numbers):
 
 
 def merge_sort(numbers):
-    """Merge sort"""
 
-    count = len(numbers)
-    numbers.begin = merge_from(numbers.begin, count)
-    # find end
-    scanner = numbers.begin
-    while scanner.next:
-        scanner = scanner.next
-    numbers.end = scanner
+    if len(numbers) <= 1:
+        # base case, already sorted
+        return
 
+    # split list in half
+    left = DoubleLinkedList()
+    right = DoubleLinkedList()
 
-def merge_from(start, length):
-    """Return sorted list starting from given node"""
+    length = len(numbers)
+    for _ in range(length // 2):
+        left.push(numbers.pop())
 
-    if not start.next:
-        # base case, single node
-        return start
+    while len(numbers):
+        right.push(numbers.pop())
 
-    # find midpoint to split list
-    mid = length // 2
-    count, scanner = 1, start
-    while count < mid:
-        scanner = scanner.next
-        count += 1
+    # recursively split
+    merge_sort(left)
+    merge_sort(right)
 
-    # split list into two
-    right = scanner.next
-    scanner.next, right.prev = None, None
-
-    # recursively sort halves
-    left = merge_from(start, mid)
-    right = merge_from(right, length - mid)
-
-    # merge back sorted halves
-    return merge(left, right)
+    # merge in order
+    merge(numbers, left, right)
 
 
-def merge(left, right):
-    """Merge the two sorted lists into 1"""
+def merge(parent, left, right):
 
-    if left is None:
-        return right
-    if right is None:
-        return left
+    # compare top items from both lists
+    while len(left) and len(right):
+        if left.first() <= right.first():
+            parent.push(left.popleft())
+        else:
+            parent.push(right.popleft())
 
-    if left.value > right.value:
-        right.next = merge(left, right.next)
-        result = right
-    else:
-        left.next = merge(left.next, right)
-        result = left
-    return result
+    # drain the remaining list
+    while len(left):
+        parent.push(left.popleft())
+
+    while len(right):
+        parent.push(right.popleft())
 
 
 def quicksort(numbers):
