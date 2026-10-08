@@ -54,7 +54,7 @@ class DoubleLinkedList:
         self._count -= 1
         return last_value
 
-    def shift(self, obj):
+    def appendleft(self, obj):
         """Add items at the beginning of the list"""
 
         node = DoubleLinkedListNode(obj)
@@ -68,7 +68,7 @@ class DoubleLinkedList:
         self.begin = node
         self._count += 1
 
-    def unshift(self):
+    def popleft(self):
         """Removes the first item and returns it"""
         if self.begin is None:
             return

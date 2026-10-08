@@ -29,7 +29,7 @@ def test_pop():
     assert colors.pop() == None
 
 
-def test_unshift():
+def test_shift():
 
     colors = SingleLinkedList()
 
@@ -39,24 +39,24 @@ def test_unshift():
 
     colors.push("Van Dyke")
 
-    assert colors.unshift() == "Viridian"
+    assert colors.popleft() == "Viridian"
 
-    assert colors.unshift() == "Sap Green"
+    assert colors.popleft() == "Sap Green"
 
-    assert colors.unshift() == "Van Dyke"
+    assert colors.popleft() == "Van Dyke"
 
-    assert colors.unshift() == None
+    assert colors.popleft() == None
 
 
-def test_shift():
+def test_unshift():
 
     colors = SingleLinkedList()
 
-    colors.shift("Cadmium Orange")
+    colors.appendleft("Cadmium Orange")
 
     assert colors.count() == 1
 
-    colors.shift("Carbazole Violet")
+    colors.appendleft("Carbazole Violet")
 
     assert colors.count() == 2
 
@@ -136,7 +136,7 @@ def test_first():
 
     assert colors.first() == "Cadmium Red Light"
 
-    colors.shift("Pthalo Green")
+    colors.appendleft("Pthalo Green")
 
     assert colors.first() == "Pthalo Green"
 
@@ -153,7 +153,7 @@ def test_last():
 
     assert colors.last() == "Hansa Yellow"
 
-    colors.shift("Pthalo Green")
+    colors.appendleft("Pthalo Green")
 
     assert colors.last() == "Hansa Yellow"
 
