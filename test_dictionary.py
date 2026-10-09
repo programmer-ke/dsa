@@ -73,3 +73,39 @@ def test_supports_different_key_types():
     assert d.get(1) == "int"
     assert d.get("key") == "str"
     assert d.get((1, 2)) == "tuple"
+
+
+def test_many_set_and_get():
+    d = Dictionary()
+    n = 10000
+    for i in range(n):
+        d.set(i, i * 2)
+    for i in range(n):
+        assert d.get(i) == i * 2
+
+
+def test_many_delete():
+    d = Dictionary()
+    n = 10000
+    for i in range(n):
+        d.set(i, i)
+    for i in range(n):
+        d.delete(i)
+    assert d.list() == []
+
+
+def test_many_overwrite():
+    d = Dictionary()
+    n = 10000
+    for i in range(n):
+        d.set(i, i)
+    for i in range(n):
+        d.set(i, i + 1)
+    for i in range(n):
+        assert d.get(i) == i + 1
+
+
+if __name__ == "__main__":
+    test_many_set_and_get()
+    test_many_delete()
+    test_many_overwrite()

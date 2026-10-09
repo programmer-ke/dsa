@@ -5,18 +5,16 @@ from double_linked_list import DoubleLinkedList
 
 class Dictionary:
 
-    NUM_BUCKETS = 256
+    NUM_BUCKETS = 4096
 
     def __init__(self):
-        self._map = DoubleLinkedList()
-        for _ in range(self.NUM_BUCKETS):
-            self._map.push(DoubleLinkedList())
+        self._map = [DoubleLinkedList() for _ in range(self.NUM_BUCKETS)]
 
     def _bucket_hash(self, key):
         return hash(key) % len(self._map)
 
     def _get_bucket(self, key):
-        return self._map.get(self._bucket_hash(key))
+        return self._map[self._bucket_hash(key)]
 
     def _get_slot(self, key):
         bucket, slot = self._get_bucket(key), None
