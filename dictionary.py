@@ -45,14 +45,9 @@ class Dictionary:
             bucket.push((key, value))
 
     def delete(self, key):
-        bucket = self._get_bucket(key)
-        scanner = bucket.begin
-        while scanner:
-            k, v = scanner.value
-            if k == key:
-                bucket.detach_node(scanner)
-                break
-            scanner = scanner.next
+        bucket, slot = self._get_slot(key)
+        if slot:
+            bucket.detach_node(slot)
 
     def list(self):
         """lists the values stored in dictionary"""
