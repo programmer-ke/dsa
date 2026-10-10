@@ -35,18 +35,19 @@ class BST:
         self.root = self._delete_from(self.root, key)
 
     def list(self) -> iter[tuple[Any, Any]]:
-        yield from self._preorder(self.root)
+        yield from self._inorder(self.root)
 
-    def _preorder(self, node):
+    def _inorder(self, node):
         if node is None:
             return
         if node.left:
-            yield from self._preorder(node.left)
+            yield from self._inorder(node.left)
         yield (node.key, node.value)
         if node.right:
-            yield from self._preorder(node.right)
+            yield from self._inorder(node.right)
 
     def _delete_from(self, node, key):
+        # todo: do an iterative version
         if node is None:
             pass
         elif key < node.key:
