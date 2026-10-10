@@ -26,10 +26,10 @@ class BST:
         return self.list()
 
     def get(self, key: Any) -> Any:
-        return self._retrieve(self.root, key)
+        return self._retrieve_iterative(self.root, key)
 
     def set(self, key: Any, value: Any) -> None:
-        self.root = self._insert(self.root, key, value)
+        self.root = self._insert_iterative(self.root, key, value)
 
     def delete(self, key) -> None:
         self.root = self._delete_from(self.root, key)
@@ -79,7 +79,30 @@ class BST:
             node = node.right
         return node.key, node.value
 
-    def _insert(self, node, key, value):
+    def _insert_iterative(self, root, key, value):
+        new_node = root
+        while new_node is not None:
+            if new_node.key == key:
+                # changing existing key
+                new_node.value = value
+                return root
+            parent = new_node
+            new_node = new_node.left if key < new_node.key else new_node.right
+
+        # need to add new node
+        new_node = BSTNode(key, value)
+        if root is None:
+            # adding root
+            root = new_node
+        elif key < parent.key:
+            # adding new left node
+            parent.left = new_node
+        else:
+            # adding new right node
+            parent.right = new_node
+        return root
+
+    def _insert_recursive(self, node, key, value):
         if node is None:
             node = BSTNode(key, value)
         elif key < node.key:
@@ -91,7 +114,14 @@ class BST:
             node.value = value
         return node
 
-    def _retrieve(self, node, key):
+    def _retrieve_iterative(self, node, key):
+        while node is not None:
+            if node.key == key:
+                return node.value
+            node = node.left if key < node.key else node.right
+        return None
+
+    def _retrieve_recursive(self, node, key):
         if node is None:
             value = None
         elif node.key == key:

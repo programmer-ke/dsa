@@ -1,5 +1,6 @@
 """Tests for binary search tree"""
 
+import random
 from bst import BST
 
 
@@ -189,3 +190,46 @@ def test_many_operations():
         assert bst.get(i) is None
     for i in range(1, 100, 2):
         assert bst.get(i) is not None
+
+
+def test_many_set_and_get():
+    b = BST()
+    n = 10000
+    for _ in range(n):
+        i = random.randint(1, n)
+        b.set(i, i * 2)
+    for i in range(n):
+        found = b.get(i)
+        if found:
+            assert found == i * 2
+
+
+def test_many_delete():
+    b = BST()
+    n = 10000
+    for _ in range(n):
+        i = random.randint(1, n)
+        b.set(i, i * 2)
+    for i in range(1, n + 1):
+        b.delete(i)
+    assert list(b.list()) == []
+
+
+def test_many_overwrite():
+    b = BST()
+    n = 10000
+    s = set()
+    for _ in range(n):
+        i = random.randint(1, n)
+        b.set(i, i)
+        s.add(i)
+    for i in s:
+        b.set(i, i + 1)
+    for i in s:
+        b.get(i) == i + 1
+
+
+if __name__ == "__main__":
+    test_many_set_and_get()
+    test_many_delete()
+    test_many_overwrite()
